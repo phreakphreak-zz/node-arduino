@@ -24,7 +24,7 @@ board.on("ready", () => {
     controller: "MPU6050",
   });
 
-    thermometer.on("data", async () => {
+    thermometer.on("change", async () => {
     const { celsius, fahrenheit, kelvin } = await thermometer;
     console.log(`${celsius} C - ${fahrenheit} F - ${kelvin} K`);
   });
