@@ -1,7 +1,6 @@
 {
   "name": "arduino",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "list": "firmata-party list",
@@ -15,6 +14,16 @@
     "etherport-client": "^0.1.4",
     "firmata-party": "^2.0.1",
     "johnny-five": "^2.0.0",
-    "node-fetch": "^2.6.1"
-  }
+    "node-fetch": "^2.6.1",
+    "serialport": "^9.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teamproyempresarial/node-arduino.git"
+  },
+  "bugs": {
+    "url": "https://github.com/teamproyempresarial/node-arduino/issues"
+  },
+  "homepage": "https://github.com/teamproyempresarial/node-arduino#readme",
+  "description": ""
 }
