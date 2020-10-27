@@ -1,4 +1,15 @@
 "use strict";
+const http = require("http");
+const express = require("express");
+const socketIO = require("socket.io");
+
+const app = express();
+const server = http.createServer(app);
+const io = socketIO.listen(server);
+server.listen(4000,()=>{
+  console.log("server on port 4000");
+  
+})
 
 const { EtherPortClient } = require("etherport-client");
 const { Accelerometer, Board, Thermometer } = require("johnny-five");
@@ -24,15 +35,18 @@ board.on("ready", () => {
     controller: "MPU6050",
   });
 
+
+  const data = {};
+
     thermometer.on("change", async () => {
     const { celsius, fahrenheit, kelvin } = await thermometer;
-    console.log(`${celsius} C - ${fahrenheit} F - ${kelvin} K`);
+      data.thermometer ={
+        celsius:celsius,
+        fahrenheit:fahrenheit,
+        kelvin:kelvin,
+      }
+    //console.log(`${celsius} C - ${fahrenheit} F - ${kelvin} K`);
   });
-
-
-
-
-
 
   accelerometer.on("change", async () => {
     const {
@@ -46,16 +60,30 @@ board.on("ready", () => {
       z,
     } = await accelerometer;
 
-    console.log("Accelerometer:");
-    console.log("  x            : ", x);
-    console.log("  y            : ", y);
-    console.log("  z            : ", z);
-    console.log("  pitch        : ", pitch);
-    console.log("  roll         : ", roll);
-    console.log("  acceleration : ", acceleration);
-    console.log("  inclination  : ", inclination);
-    console.log("  orientation  : ", orientation);
-    console.log(new Date());
-    console.log("--------------------------------------");
+    data.accelerometer = {
+      x:x,
+      y:y,
+      z:z,
+      roll:roll,
+      pitch:pitch,
+      orientation:orientation,
+      inclination:inclination,
+      acceleration:acceleration,
+
+
+    }
+    // console.log("Accelerometer:");
+    // console.log("  x            : ", x);
+    // console.log("  y            : ", y);
+    // console.log("  z            : ", z);
+    // console.log("  pitch        : ", pitch);
+    // console.log("  roll         : ", roll);
+    // console.log("  acceleration : ", acceleration);
+    // console.log("  inclination  : ", inclination);
+    // console.log("  orientation  : ", orientation);
+    // console.log(new Date());
+    // console.log("--------------------------------------");
   });
+
+  io.emit("data",data);
 });
