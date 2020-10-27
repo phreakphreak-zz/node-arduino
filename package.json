@@ -1,30 +1,25 @@
 {
   "name": "arduino",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "axios": "^0.21.0",
-    "etherport-client": "^0.1.4",
-    "express": "^4.17.1",
-    "firmata-party": "^2.0.1",
-    "johnny-five": "^2.0.0",
-    "node-fetch": "^2.6.1",
-    "serialport": "^9.0.2",
-    "socket.io": "^2.3.0"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/teamproyempresarial/node-arduino.git"
   },
+  "author": "",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/teamproyempresarial/node-arduino/issues"
   },
   "homepage": "https://github.com/teamproyempresarial/node-arduino#readme",
-  "description": ""
+  "dependencies": {
+    "etherport-client": "^0.1.4",
+    "express": "^4.17.1",
+    "johnny-five": "^2.0.0",
+    "socket.io": "^2.3.0"
+  }
 }

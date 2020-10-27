@@ -45,7 +45,7 @@ board.on("ready", () => {
         fahrenheit:fahrenheit,
         kelvin:kelvin,
       }
-    //console.log(`${celsius} C - ${fahrenheit} F - ${kelvin} K`);
+    console.log(`${celsius/2} C - ${fahrenheit} F - ${kelvin} K`);
   });
 
   accelerometer.on("change", async () => {
@@ -69,21 +69,20 @@ board.on("ready", () => {
       orientation:orientation,
       inclination:inclination,
       acceleration:acceleration,
-
-
     }
-    // console.log("Accelerometer:");
-    // console.log("  x            : ", x);
-    // console.log("  y            : ", y);
-    // console.log("  z            : ", z);
-    // console.log("  pitch        : ", pitch);
-    // console.log("  roll         : ", roll);
-    // console.log("  acceleration : ", acceleration);
-    // console.log("  inclination  : ", inclination);
-    // console.log("  orientation  : ", orientation);
-    // console.log(new Date());
-    // console.log("--------------------------------------");
+    console.log("Accelerometer:");
+    console.log("  x            : ", x);
+    console.log("  y            : ", y);
+    console.log("  z            : ", z);
+    console.log("  pitch        : ", pitch);
+    console.log("  roll         : ", roll);
+    console.log("  acceleration : ", acceleration);
+    console.log("  inclination  : ", inclination);
+    console.log("  orientation  : ", orientation);
+    console.log(new Date());
+    console.log("--------------------------------------");
   });
 
-  io.emit("data",data);
+
+//   io.emit("data",data);
 });
