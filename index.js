@@ -13,48 +13,50 @@ const board = new Board({
 });
 
 board.on("ready", () => {
-  this.loop(500, () => {
-    const thermometer = new Thermometer({
-      controller: "LM35",
-      pin: "A0",
-    });
+  
+  const thermometer = new Thermometer({
+    controller: "LM35",
+    pin: "A0",
+  });
+
+
+  const accelerometer = new Accelerometer({
+    controller: "MPU6050",
+  });
+
+  const dataSensor = async ()=>{
     thermometer.on("data", () => {
-      const { celsius, fahrenheit, kelvin } = thermometer;
-      console.log("Thermometer");
-      console.log("  celsius      : ", celsius / 2);
-      // console.log("  fahrenheit   : ", fahrenheit);
-      // console.log("  kelvin       : ", kelvin);
-      console.log("--------------------------------------");
-    });
+    const { celsius, fahrenheit, kelvin } = thermometer;
+    console.log(`${celsius} C - ${fahrenheit} F - ${kelvin} K`);
+    // console.log("  celsius      : ", celsius / 2);
+    // console.log("  fahrenheit   : ", fahrenheit);
+    // console.log("  kelvin       : ", kelvin);
+    // console.log("--------------------------------------");
+  });}
 
-    const accelerometer = new Accelerometer({
-      controller: "MPU6050",
-    });
 
-    accelerometer.on("data", () => {
-      const {
-        acceleration,
-        inclination,
-        orientation,
-        pitch,
-        roll,
-        x,
-        y,
-        z,
-      } = accelerometer;
+  accelerometer.on("change", () => {
+    const {
+      acceleration,
+      inclination,
+      orientation,
+      pitch,
+      roll,
+      x,
+      y,
+      z,
+    } = accelerometer;
 
-      console.log("Accelerometer:");
-      console.log("  x            : ", x);
-      console.log("  y            : ", y);
-      console.log("  z            : ", z);
-      console.log("  pitch        : ", pitch);
-      console.log("  roll         : ", roll);
-      console.log("  acceleration : ", acceleration);
-      console.log("  inclination  : ", inclination);
-      console.log("  orientation  : ", orientation);
-      console.log(new Date());
-      console.log("--------------------------------------");
-    });
-
+    console.log("Accelerometer:");
+    console.log("  x            : ", x);
+    console.log("  y            : ", y);
+    console.log("  z            : ", z);
+    console.log("  pitch        : ", pitch);
+    console.log("  roll         : ", roll);
+    console.log("  acceleration : ", acceleration);
+    console.log("  inclination  : ", inclination);
+    console.log("  orientation  : ", orientation);
+    console.log(new Date());
+    console.log("--------------------------------------");
   });
 });
