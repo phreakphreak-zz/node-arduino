@@ -24,18 +24,17 @@ board.on("ready", () => {
     controller: "MPU6050",
   });
 
-  const dataSensor = async ()=>{
-    thermometer.on("data", () => {
-    const { celsius, fahrenheit, kelvin } = thermometer;
+    thermometer.on("data", async () => {
+    const { celsius, fahrenheit, kelvin } = await thermometer;
     console.log(`${celsius} C - ${fahrenheit} F - ${kelvin} K`);
-    // console.log("  celsius      : ", celsius / 2);
-    // console.log("  fahrenheit   : ", fahrenheit);
-    // console.log("  kelvin       : ", kelvin);
-    // console.log("--------------------------------------");
-  });}
+  });
 
 
-  accelerometer.on("change", () => {
+
+
+
+
+  accelerometer.on("change", async () => {
     const {
       acceleration,
       inclination,
@@ -45,7 +44,7 @@ board.on("ready", () => {
       x,
       y,
       z,
-    } = accelerometer;
+    } = await accelerometer;
 
     console.log("Accelerometer:");
     console.log("  x            : ", x);
