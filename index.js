@@ -13,7 +13,7 @@ const board = new Board({
 });
 
 board.on("ready", () => {
-  
+  board.samplingInterval(1000);
   const thermometer = new Thermometer({
     controller: "LM35",
     pin: "A0",
