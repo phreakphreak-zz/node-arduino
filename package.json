@@ -1,0 +1,20 @@
+{
+  "name": "arduino",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "list": "firmata-party list",
+    "reset": "firmata-party uno COM8 --debug",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "etherport-client": "^0.1.4",
+    "firmata-party": "^2.0.1",
+    "johnny-five": "^2.0.0",
+    "node-fetch": "^2.6.1"
+  }
+}
