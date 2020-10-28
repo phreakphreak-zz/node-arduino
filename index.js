@@ -1,16 +1,5 @@
 "use strict";
-const http = require("http");
 const axios = require("axios").default;
-const express = require("express");
-const socketIO = require("socket.io");
-
-const app = express();
-const server = http.createServer(app);
-const io = socketIO.listen(server);
-server.listen(4000, () => {
-  console.log("server on port 4000");
-});
-
 const { EtherPortClient } = require("etherport-client");
 const { Accelerometer, Board, Thermometer } = require("johnny-five");
 const board = new Board({
@@ -24,8 +13,7 @@ const board = new Board({
 });
 
 
-const dataThermometer = {};
-const dataAccelerometer = {};
+const data = {};
 
 
 board.on("ready", () => {
@@ -42,18 +30,12 @@ board.on("ready", () => {
 
   thermometer.on("change", async () => {
     const { celsius, fahrenheit, kelvin } = await thermometer;
-    dataThermometer.thermometer = {
+    data.thermometer = {
       celsius: celsius,
       fahrenheit: fahrenheit,
       kelvin: kelvin,
     };
-    axios.post('http://192.168.0.12/api/devices/thermometer',dataThermometer)
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+    
   });
 
   accelerometer.on("change", async () => {
@@ -68,7 +50,7 @@ board.on("ready", () => {
       z,
     } = await accelerometer;
 
-    dataAccelerometer.accelerometer = {
+    data.accelerometer = {
       x: x,
       y: y,
       z: z,
@@ -78,17 +60,16 @@ board.on("ready", () => {
       inclination: inclination,
       acceleration: acceleration,
     };
-    axios.post('http://192.168.0.12/api/devices/accelerometer',dataAccelerometer)
+    
+  });
+});
+axios.post('http://192.168.0.12:3000/api/devices',data)
     .then(function (response) {
       console.log(response);
     })
     .catch(function (error) {
       console.log(error);
     });
-  });
-});
-
-
 
 
 
