@@ -1,7 +1,9 @@
 "use strict";
 const axios = require("axios").default;
 const { EtherPortClient } = require("etherport-client");
-const { Accelerometer, Board, Thermometer } = require("johnny-five");
+const { Board, Accelerometer, Thermometer } = require("johnny-five");
+const data = {};
+
 const board = new Board({
   port: new EtherPortClient({
     host: "192.168.0.11",
@@ -9,14 +11,14 @@ const board = new Board({
     baudrate: 9600,
     buffersize: 1,
   }),
-  repl: true,
+  repl: false,
 });
 
 
-const data = {};
-
+board.on("connect", () => {});
 
 board.on("ready", () => {
+  //timer
   board.samplingInterval(1000);
 
   const thermometer = new Thermometer({
@@ -35,7 +37,6 @@ board.on("ready", () => {
       fahrenheit: fahrenheit,
       kelvin: kelvin,
     };
-    
   });
 
   accelerometer.on("change", async () => {
@@ -60,16 +61,13 @@ board.on("ready", () => {
       inclination: inclination,
       acceleration: acceleration,
     };
-    
   });
 });
-axios.post('http://192.168.0.12:3000/api/devices',data)
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-
-
-
+axios
+  .post("http://192.168.0.12:3000/api/devices", data)
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
