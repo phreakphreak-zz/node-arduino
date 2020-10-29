@@ -15,21 +15,25 @@ const board = new Board({
 });
 
 
+
+
 board.on("connect", () => {});
 
-board.on("ready", () => {
-  //timer
-  board.samplingInterval(1000);
 
+
+
+
+
+//Board Ready
+board.on("ready", () => {
+  board.samplingInterval(1000);
   const thermometer = new Thermometer({
     controller: "LM35",
     pin: "A0",
   });
-
   const accelerometer = new Accelerometer({
     controller: "MPU6050",
   });
-
   thermometer.on("change", async () => {
     const { celsius, fahrenheit, kelvin } = await thermometer;
     data.thermometer = {
@@ -39,6 +43,8 @@ board.on("ready", () => {
     };
   });
 
+
+  
   accelerometer.on("change", async () => {
     const {
       acceleration,
@@ -63,6 +69,7 @@ board.on("ready", () => {
     };
   });
 });
+
 axios
   .post("http://192.168.0.12:3000/api/devices", data)
   .then(function (response) {
