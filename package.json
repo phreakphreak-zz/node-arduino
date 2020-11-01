@@ -18,8 +18,8 @@
   "homepage": "https://github.com/teamproyempresarial/node-arduino#readme",
   "dependencies": {
     "axios": "^0.21.0",
+    "bcryptjs": "^2.4.3",
     "etherport-client": "^0.1.4",
-    "express": "^4.17.1",
     "johnny-five": "^2.0.0",
     "serialport": "^9.0.2"
   }

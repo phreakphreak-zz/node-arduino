@@ -5,4 +5,7 @@ const thermometer = new Thermometer({
   pin: "A0",
 });
 
+
+
+
 module.exports = thermometer;
