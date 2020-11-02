@@ -5,6 +5,7 @@ class Device {
     this.tokenDevice = tokenDevice;
     this.deviceId = deviceId;
     this.macAddress = macAddress;
+    this.components={};
   }
 
   get getTokenDevice() {

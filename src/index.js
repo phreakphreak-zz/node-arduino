@@ -1,9 +1,4 @@
 "use strict";
-//obtner object con info de las interfaces
-
-const networkInterfaces = require("os").networkInterfaces();
-
-
 //console.log(getMac(networkInterfaces));
 
 //Settings
@@ -16,18 +11,20 @@ const mac_address = "84:0D:8E:A3:B1:EA";
 
 board.samplingInterval(1000);
 board.on(EVENTS.ready, () => {
-  axios
-    .post(URI, {
-      numberSerie: 123456,
-      tokenDevice: "",
-      macAdress: mac_address,
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.error(error);
-    });
+  // axios
+  //   .post(URI, {
+  //     numberSerie: 123456,
+  //     tokenDevice: "",
+  //     macAdress: mac_address,
+  //   })
+  //   .then(function (response) {
+  //     console.log(response);
+  //   })
+  //   .catch(function (error) {
+  //     console.error(error);
+  //   });
+
+
   const data = {};
   const thermometer = require("./thermometer");
   const accelerometer = require("./accelerometer");
