@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,9 +19,8 @@
   "homepage": "https://github.com/teamproyempresarial/node-arduino#readme",
   "dependencies": {
     "axios": "^0.21.0",
-    "bcryptjs": "^2.4.3",
     "etherport-client": "^0.1.4",
     "johnny-five": "^2.0.0",
-    "serialport": "^9.0.2"
+    "pedometer": "0.0.5"
   }
 }
