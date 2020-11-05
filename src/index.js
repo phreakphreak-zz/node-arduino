@@ -1,109 +1,94 @@
 "use strict";
-<<<<<<< HEAD
-//console.log(getMac(networkInterfaces));
-=======
->>>>>>> cf456146904c634a4c0c6538f450e67f1f68604a
-
-//Settings
-const { URI, KEY_SECRET, EVENTS } = require("./config");
-const { Device } = require("./Device");
+const { URI1, URI2, URI3, KEY_SECRET, EVENTS } = require("./config");
 const axios = require("axios").default;
 const board = require("./board");
-const {pedometer,options} = require("./stepper");
-
-const mac_address = "84:0D:8E:A3:B1:EA";
+const { IMU } = require("johnny-five");
+const device = {
+  board: "Wemos D1",
+  moduleWifi: "ESP8266",
+  macAddress: "84:0D:8E:A3:B1:EA",
+  thermometer: "LM35",
+  accelerometer: "MPU6050",
+};
 
 board.samplingInterval(1000);
-board.on(EVENTS.ready, () => {
-  // axios
-  //   .post(URI, {
-  //     numberSerie: 123456,
-  //     tokenDevice: "",
-  //     macAdress: mac_address,
-  //   })
-  //   .then(function (response) {
-  //     console.log(response);
-  //   })
-  //   .catch(function (error) {
-  //     console.error(error);
-  //   });
+board.on(EVENTS.ready, async () => {
+  const { data } = await axios.post(URI1, device);
+  device.deviceId = data.deviceId;
+  board.id = data.deviceId;
 
+  // const gyro = require("./gyro");
+  // const thermometer = require("./thermometer");
+  // const accelerometer = require("./accelerometer");
 
-  //Device.obtainMac(networkInterfaces);
-
-  //const steps=pedometer(data.acc,data.att,100,options);
-  //console.log("The algorithm detected "+steps.length+" steps.");
-//variables
-  const data = {};
-  const thermometer = require("./thermometer");
-  const accelerometer = require("./accelerometer");
-  const gyro = require("./gyro");
-  
-  const count = 0;
-
-  
-  const d1=[];
-  const d2=[];
-  
-  // setInterval(async () => {
-  // //console.log(d1,d2);
-  // const steps=  await pedometer(d1,d2,100,options);
-  // console.log("The algorithm detected "+steps.length+" steps.");
-  // }, 1000);
-
-  thermometer.on(EVENTS.change, async () => {
-    const { C,F,K,celsius,fahrenheit,kelvin } = await thermometer;
-    data.thermometer = {
-      celsius: celsius,
-      fahrenheit: fahrenheit,
-      kelvin: kelvin,
-      C:C,
-      F:F,
-      K,
-    };
+  const accelerometer = new IMU({
+    controller: "MPU6050",
   });
 
-  
-  accelerometer.on(EVENTS.change, async () =>{
-    const {
-      acceleration,
-      inclination,
-      orientation,
-      pitch,
-      roll,
-      x,
-      y,
-      z,
-    } = await accelerometer;
-
-    data.accelerometer = {
-      x: x,
-      y: y,
-      z: z,
-      roll: roll,
-      pitch: pitch,
-      orientation: orientation,
-      inclination: inclination,
-      acceleration: acceleration,
-    };
-     d1.push([x,y,z]);
-  console.log(data);
+  accelerometer.on("data", function (err, data) {
+    console.log(
+      "Accelerometer: %d, %d, %d",
+      this.accelerometer.x,
+      this.accelerometer.z,
+      this.accelerometer.z
+    );
+    console.log("Gyro: %d, %d, %d", this.gyro.x, this.gyro.z, this.gyro.z);
+    console.log("Temperature: %d", this.temperature.celsius);
   });
-  gyro.on(EVENTS.change, async ()=>{
-    
-    const {pitch,roll,yaw} = await gyro;
-    
-    d2.push([pitch.rate, roll.rate,yaw.rate]);
-    //console.log(d1,d2);
-  
-  });
-  
 
-  setInterval( () => {
-  //console.log(d1,d2);
-  const steps=   pedometer(d1,d2,100,options);
-  console.log("The algorithm detected "+steps.length+" steps.");
-  }, 2000);
+  // thermometer.on(EVENTS.change, async () => {
+  //   const { C, F, K, celsius, fahrenheit, kelvin } = await thermometer;
+  //   const ther = {
+  //     celsius,
+  //     fahrenheit,
+  //     kelvin,
+  //     C,
+  //     F,
+  //     K,
+  //   };
 
-  
+  //   console.log(ther);
+  // });
+
+  // accelerometer.on(EVENTS.change, async () => {
+  //   const {
+  //     x,
+  //     y,
+  //     z,
+  //     pitch,
+  //     roll,
+  //     inclination,
+  //     orientation,
+  //     acceleration,
+  //   } = await accelerometer;
+
+  //   const acc = {
+  //     x: x,
+  //     y: y,
+  //     z: z,
+  //     roll: roll,
+  //     pitch: pitch,
+  //     inclination: inclination,
+  //     orientation: orientation,
+  //     acceleration: acceleration,
+  //   };
+
+  //   console.log(acc);
+  // });
+
+  // gyro.on(EVENTS.change, async () => {
+  //   const {x,y,z,pitch, roll,yaw,rate,isCalibrated}=gyro;
+  //   console.log("gyro");
+  //   console.log("  x            : ", x);
+  //   console.log("  y            : ", y);
+  //   console.log("  z            : ", z);
+  //   console.log("  pitch        : ", pitch);
+  //   console.log("  roll         : ", roll);
+  //   console.log("  yaw          : ", yaw);
+  //   console.log("  rate         : ", rate);
+  //   console.log("  isCalibrated : ", isCalibrated);
+  //   console.log("--------------------------------------");
+  // });
+
+  //axios.post(URI2,)
 });

@@ -15,9 +15,7 @@ const board = new Board({
 
 board.on("connect", () => {
   console.log("device is connected");
-  
 });
-
 
 //Board Ready
 board.on("ready", () => {
@@ -40,8 +38,6 @@ board.on("ready", () => {
     };
   });
 
-
-  
   accelerometer.on("change", async () => {
     const {
       acceleration,

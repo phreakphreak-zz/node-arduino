@@ -1,9 +1,10 @@
+const {HOST,PORT} = require("./config")
 const { EtherPortClient } = require("etherport-client");
 const { Board } = require("johnny-five");
 const board = new Board({
   port: new EtherPortClient({
-    host: "192.168.0.8",
-    port: 3030,
+    host: HOST,
+    port: PORT,
     baudrate: 9600,
     buffersize: 1,
   }),
