@@ -19,6 +19,7 @@ const gyro = new Gyro({
 
 const accelerometer = new Accelerometer({
   controller: "MPU6050",
+  sensitivity:4096
 });
 const thermometer = new Thermometer({
   controller: "LM35",

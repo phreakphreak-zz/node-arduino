@@ -12,6 +12,7 @@ const {
 board.samplingInterval(1000);
 board.on(EVENTS.ready, async () => {
   const { data } = await axios.post(URI1, device);
+
   device.deviceId = data.deviceId;
   board.id = data.deviceId;
   thermometer.on(EVENTS.change, async () => {
