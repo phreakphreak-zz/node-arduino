@@ -25,7 +25,6 @@ const board = new Board({
 });
 board.samplingInterval(1000);
 board.on("ready", async () => {
-
   const thermometer = new Thermometer({
     controller: "LM35",
     pin: "A0",
@@ -46,7 +45,6 @@ board.on("ready", async () => {
     console.log(`Celsius: ${C}`);
     console.log(`Fahrenheit: ${F}`);
     console.log(`Kelvin: ${K}`);
-
   });
 
   accelerometer.on("change", async () => {
@@ -69,13 +67,11 @@ board.on("ready", async () => {
     console.log(`inclination: ${inclination}`);
     console.log(`orientation: ${orientation}`);
     console.log(`acceleration: ${acceleration}`);
-
-
   });
 
   gyro.on("change", async () => {
     const { x, y, z, pitch, roll, yaw, isCalibrated } = await gyro;
-    console.log("Gyro")
+    console.log("Gyro");
     console.log(`x: ${x}`);
     console.log(`y: ${y}`);
     console.log(`z: ${z}`);
@@ -83,6 +79,5 @@ board.on("ready", async () => {
     console.log(`roll: ${roll}`);
     console.log(`yaw: ${yaw}`);
     console.log(`isCalibrated: ${isCalibrated}`);
-
   });
 });
