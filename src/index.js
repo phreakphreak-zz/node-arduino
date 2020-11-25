@@ -2,6 +2,11 @@
 const { EtherPortClient } = require("etherport-client");
 const { Board, Accelerometer, Thermometer, Gyro } = require("johnny-five");
 const axios = require("axios").default;
+const BASE = "http://localhost:3000/api";
+const URI_DEV = `${BASE}/device`;
+const URI_ACCE = `${BASE}/accelerometer`;
+const URI_GYRO = `${BASE}/gyro`;
+const URI_THER = `${BASE}/thermometer`;
 const device = {
   board: "Wemos D1",
   moduleWifi: "ESP8266",
@@ -20,10 +25,10 @@ const board = new Board({
 });
 board.samplingInterval(1000);
 board.on("ready", async () => {
-  //const { data } = await axios.post(URI1, device);
+  const { data } = await axios.post(URI_DEV, device);
+  device.deviceId = data.deviceId;
+  board.id = data.deviceId;
 
-  //device.deviceId = data.deviceId;
-  //board.id = data.deviceId;
   const thermometer = new Thermometer({
     controller: "LM35",
     pin: "A0",
@@ -31,7 +36,7 @@ board.on("ready", async () => {
 
   const accelerometer = new Accelerometer({
     controller: "MPU6050",
-    sensitivity: 4096,
+    sensitivity: 16384,
   });
 
   const gyro = new Gyro({
@@ -39,8 +44,13 @@ board.on("ready", async () => {
   });
 
   thermometer.on("change", async () => {
-    const { celsius } = await thermometer;
-    console.log("celsius:", celsius);
+    const { C, F, K } = await thermometer;
+    await axios.post(URI_THER, {
+      C,
+      F,
+      K,
+      deviceId: device.deviceId,
+    });
   });
 
   accelerometer.on("change", async () => {
@@ -50,15 +60,34 @@ board.on("ready", async () => {
       z,
       pitch,
       roll,
-      acceleration,
-      orientation,
       inclination,
+      orientation,
+      acceleration,
     } = await accelerometer;
-    console.log("accelerometer:", x, y, z, acceleration);
+    axios.post(URI_ACCE, {
+      x,
+      y,
+      z,
+      pitch,
+      roll,
+      inclination,
+      orientation,
+      acceleration,
+      deviceId: device.deviceId,
+    });
   });
 
   gyro.on("change", async () => {
     const { x, y, z, pitch, roll, yaw, isCalibrated } = await gyro;
-    console.log("gyro:",x,y,z,pitch,roll,yaw);
+    await axios.post(URI_GYRO, {
+      x,
+      y,
+      z,
+      pitch,
+      roll,
+      yaw,
+      isCalibrated,
+      deviceId: device.deviceId,
+    });
   });
 });
