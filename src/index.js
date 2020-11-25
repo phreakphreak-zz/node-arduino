@@ -25,9 +25,6 @@ const board = new Board({
 });
 board.samplingInterval(1000);
 board.on("ready", async () => {
-  const { data } = await axios.post(URI_DEV, device);
-  device.deviceId = data.deviceId;
-  board.id = data.deviceId;
 
   const thermometer = new Thermometer({
     controller: "LM35",
@@ -45,12 +42,11 @@ board.on("ready", async () => {
 
   thermometer.on("change", async () => {
     const { C, F, K } = await thermometer;
-    await axios.post(URI_THER, {
-      C,
-      F,
-      K,
-      deviceId: device.deviceId,
-    });
+    console.log("thermometer");
+    console.log(`Celsius: ${C}`);
+    console.log(`Fahrenheit: ${F}`);
+    console.log(`Kelvin: ${K}`);
+
   });
 
   accelerometer.on("change", async () => {
@@ -64,30 +60,29 @@ board.on("ready", async () => {
       orientation,
       acceleration,
     } = await accelerometer;
-    axios.post(URI_ACCE, {
-      x,
-      y,
-      z,
-      pitch,
-      roll,
-      inclination,
-      orientation,
-      acceleration,
-      deviceId: device.deviceId,
-    });
+    console.log("Acclerometer");
+    console.log(`x: ${x}`);
+    console.log(`y: ${y}`);
+    console.log(`z: ${z}`);
+    console.log(`pitch: ${pitch}`);
+    console.log(`roll: ${roll}`);
+    console.log(`inclination: ${inclination}`);
+    console.log(`orientation: ${orientation}`);
+    console.log(`acceleration: ${acceleration}`);
+
+
   });
 
   gyro.on("change", async () => {
     const { x, y, z, pitch, roll, yaw, isCalibrated } = await gyro;
-    await axios.post(URI_GYRO, {
-      x,
-      y,
-      z,
-      pitch,
-      roll,
-      yaw,
-      isCalibrated,
-      deviceId: device.deviceId,
-    });
+    console.log("Gyro")
+    console.log(`x: ${x}`);
+    console.log(`y: ${y}`);
+    console.log(`z: ${z}`);
+    console.log(`pitch: ${pitch}`);
+    console.log(`roll: ${roll}`);
+    console.log(`yaw: ${yaw}`);
+    console.log(`isCalibrated: ${isCalibrated}`);
+
   });
 });
