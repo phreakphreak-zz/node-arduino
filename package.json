@@ -3,24 +3,23 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "etherport-client": "^0.1.4",
+    "johnny-five": "^2.0.0"
+  },
+  "devDependencies": {},
   "scripts": {
-    "dev": "node src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node src/index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/teamproyempresarial/node-arduino.git"
+    "url": "git+https://github.com/phreakphreak/node-arduino.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/teamproyempresarial/node-arduino/issues"
+    "url": "https://github.com/phreakphreak/node-arduino/issues"
   },
-  "homepage": "https://github.com/teamproyempresarial/node-arduino#readme",
-  "dependencies": {
-    "axios": "^0.21.0",
-    "etherport-client": "^0.1.4",
-    "johnny-five": "^2.0.0",
-    "pedometer": "0.0.5"
-  }
+  "homepage": "https://github.com/phreakphreak/node-arduino#readme"
 }
