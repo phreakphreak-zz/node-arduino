@@ -113,7 +113,7 @@ board.on("ready", async () => {
     // console.log(`yaw: ${yaw}`);
     // console.log(`isCalibrated: ${isCalibrated}`);
 
-    const { message } = await axios.post(URI_ACCE, {
+    const { message } = await axios.post(URI_GYRO, {
       x,
       y,
       z,
